@@ -17,6 +17,18 @@ echo -e "Preparing system ..........."
 sleep 5
 echo ""
 
+# Configuring /etc/hosts, hostname and resolv.conf
+echo -e "[INFO] : Configuring hostname, /etc/hosts and resolv.conf"
+sleep 3
+
+echo -n "Please insert your Hostname. Example mail : "
+read HOSTNAME
+echo -n "Please insert your Domain name. Example imanudin.net : "
+read DOMAIN
+echo -n "Please insert your IP Address : "
+read IPADDRESS
+echo ""
+
 # Update, upgrade and install dependencies
 echo -e "[INFO] : Install dependencies"
 sleep 3
@@ -32,18 +44,6 @@ systemctl stop sendmail
 systemctl stop postfix
 systemctl disable sendmail
 systemctl disable postfix
-echo ""
-
-# Configuring /etc/hosts, hostname and resolv.conf
-echo -e "[INFO] : Configuring hostname, /etc/hosts and resolv.conf"
-sleep 3
-
-echo -n "Please insert your Hostname. Example mail : "
-read HOSTNAME
-echo -n "Please insert your Domain name. Example imanudin.net : "
-read DOMAIN
-echo -n "Please insert your IP Address : "
-read IPADDRESS
 echo ""
 
 # /etc/hosts
@@ -104,6 +104,8 @@ echo "@		IN	NS	ns1.$DOMAIN." >> /etc/bind/db.$DOMAIN
 echo "@		IN	MX	0 $HOSTNAME.$DOMAIN." >> /etc/bind/db.$DOMAIN
 echo "ns1	IN	A	$IPADDRESS" >> /etc/bind/db.$DOMAIN
 echo "$HOSTNAME	IN	A	$IPADDRESS" >> /etc/bind/db.$DOMAIN
+
+sed -i 's/dnssec-validation yes/dnssec-validation no/g' /etc/bind/named.conf.options
 
 # Restart Service & Check results configuring DNS Server
 
