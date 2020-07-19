@@ -63,7 +63,16 @@ systemctl disable postfix
 
 yum update -y
 yum upgrade -y
-yum -y install perl perl-core wget screen w3m elinks openssh-clients openssh-server bind bind-utils unzip nmap sed nc sysstat libaio rsync telnet aspell net-tools
+yum -y install perl perl-core
+yum -y install wget screen
+yum -y install w3m
+yum -y install openssh-clients openssh-server
+yum -y install bind bind-utils
+yum -y install unzip nmap
+yum -y install sed nc
+yum -y install sysstat libaio
+yum -y install rsync telnet
+yum -y install aspell net-tools
 
 # Restart Network
 service network restart
